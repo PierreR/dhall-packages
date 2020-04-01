@@ -1,7 +1,5 @@
 let typesUnion = ./typesUnion.dhall
 
-let project = ./project.dhall
-
 let route = ./route.dhall
 
 let service = ./service.dhall
@@ -16,12 +14,9 @@ let createApplication =
 
         let configuredRoute = route config
 
-        let configuredProject = project config
-
         in  OpenShiftList::{
             , items =
-              [ typesUnion.Project configuredProject
-              , typesUnion.Service configuredService
+              [ typesUnion.Service configuredService
               , typesUnion.Route configuredRoute
               ]
             }
