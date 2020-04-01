@@ -13,7 +13,7 @@ let service
               , name = Some "http"
               , protocol = Some "TCP"
               , port = 80
-              , nodePort = Some 9999
+              , targetPort = Some (< Int : Natural | String : Text >.Int 9999)
               }
             ]
           }
