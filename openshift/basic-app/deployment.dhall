@@ -26,6 +26,10 @@ let deployment
                   , name = config.name
                   , image = Some config.image
                   , env = config.envVars
+                  , securityContext = Some OpenShift.SecurityContext::{
+                    , runAsUser =
+                        if config.runAsRoot then Some 0 else None Natural
+                    }
                   , ports =
                     [ OpenShift.ContainerPort::{
                       , containerPort = config.appPort
