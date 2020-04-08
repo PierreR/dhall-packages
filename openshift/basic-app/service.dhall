@@ -6,7 +6,10 @@ let service
     : Config.Type → OpenShift.Service.Type
     =   λ(config : Config.Type)
       → OpenShift.Service::{
-        , metadata = OpenShift.ObjectMeta::{ name = "nixery" }
+        , metadata = OpenShift.ObjectMeta::{
+          , name = config.name
+          , namespace = Some config.name
+          }
         , spec = Some OpenShift.ServiceSpec::{
           , ports =
             [ OpenShift.ServicePort::{

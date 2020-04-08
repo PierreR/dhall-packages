@@ -7,7 +7,10 @@ let deployment
     : Config.Type → OpenShift.Deployment.Type
     =   λ(config : Config.Type)
       → OpenShift.Deployment::{
-        , metadata = OpenShift.ObjectMeta::{ name = config.name }
+        , metadata = OpenShift.ObjectMeta::{
+          , name = config.name
+          , namespace = Some config.name
+          }
         , spec = Some OpenShift.DeploymentSpec::{
           , selector = OpenShift.LabelSelector::{
             , matchLabels = [ { mapKey = "app", mapValue = config.name } ]

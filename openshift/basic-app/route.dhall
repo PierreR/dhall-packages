@@ -7,7 +7,10 @@ let route
     : Config.Type → OpenShift.Route.Type
     =   λ(config : Config.Type)
       → OpenShift.Route::{
-        , metadata = OpenShift.ObjectMeta::{ name = config.name }
+        , metadata = OpenShift.ObjectMeta::{
+          , name = config.name
+          , namespace = Some config.name
+          }
         , spec = OpenShift.RouteSpec::{
           , host = config.domain
           , path = Some "/"
