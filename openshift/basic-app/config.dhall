@@ -11,6 +11,7 @@ in  { Type =
         , envVars : List OpenShift.EnvVar.Type
         , enableTLS : Bool
         , runAsRoot : Bool
+        , runPrivileged : Bool
         , timeout : Text
         }
     , default =
@@ -22,6 +23,7 @@ in  { Type =
         , displayName = ""
         , replicas = 1
         , runAsRoot = False
+        , runPrivileged = False
         , envVars = [] : List OpenShift.EnvVar.Type
         , timeout = "60s"
         }

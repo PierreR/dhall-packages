@@ -29,6 +29,8 @@ let deployment
                   , securityContext = Some OpenShift.SecurityContext::{
                     , runAsUser =
                         if config.runAsRoot then Some 0 else None Natural
+                    , privileged =
+                        if config.runPrivileged then Some True else Some False
                     }
                   , ports =
                     [ OpenShift.ContainerPort::{
