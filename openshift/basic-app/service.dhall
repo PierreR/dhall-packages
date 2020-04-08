@@ -15,7 +15,7 @@ let service
             [ OpenShift.ServicePort::{
               , name = Some "http"
               , protocol = Some "TCP"
-              , port = 80
+              , port = if config.enableTLS then 443 else 80
               , targetPort = Some
                   (< Int : Natural | String : Text >.Int config.appPort)
               }

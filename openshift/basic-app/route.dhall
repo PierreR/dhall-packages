@@ -19,6 +19,12 @@ let route
             , name = config.name
             , weight = 100
             }
+          , tls =
+                    if config.enableTLS
+
+              then  Some OpenShift.TLSConfig::{ termination = "edge" }
+
+              else  None OpenShift.TLSConfig.Type
           }
         }
 

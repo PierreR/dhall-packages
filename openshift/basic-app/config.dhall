@@ -9,10 +9,12 @@ in  { Type =
         , displayName : Text
         , replicas : Natural
         , envVars : List OpenShift.EnvVar.Type
+        , enableTLS : Bool
         }
     , default =
         { name = ""
         , appPort = 9999
+        , enableTLS = False
         , image = ""
         , domain = ""
         , displayName = ""
