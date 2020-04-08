@@ -19,6 +19,7 @@ let service
               , targetPort = Some (< Int : Natural | String : Text >.Int 9999)
               }
             ]
+          , selector = [ { mapKey = "app", mapValue = config.name } ]
           }
         }
 
