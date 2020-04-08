@@ -10,6 +10,7 @@ in  { Type =
         , replicas : Natural
         , envVars : List OpenShift.EnvVar.Type
         , enableTLS : Bool
+        , timeout : Text
         }
     , default =
         { name = ""
@@ -20,5 +21,6 @@ in  { Type =
         , displayName = ""
         , replicas = 1
         , envVars = [] : List OpenShift.EnvVar.Type
+        , timeout = "60s"
         }
     }

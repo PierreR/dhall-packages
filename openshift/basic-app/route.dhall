@@ -10,6 +10,11 @@ let route
         , metadata = OpenShift.ObjectMeta::{
           , name = config.name
           , namespace = Some config.name
+          , annotations =
+            [ { mapKey = "haproxy.router.openshift.io/timeout"
+              , mapValue = config.timeout
+              }
+            ]
           }
         , spec = OpenShift.RouteSpec::{
           , host = config.domain
