@@ -7,7 +7,7 @@ let project
     =   λ(config : Config.Type)
       → OpenShift.Project::{
         , metadata = OpenShift.ObjectMeta::{
-          , name = "nixery"
+          , name = config.name
           , annotations =
             [ { mapKey = "openshift.io/display-name"
               , mapValue = config.displayName

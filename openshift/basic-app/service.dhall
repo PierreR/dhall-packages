@@ -16,7 +16,8 @@ let service
               , name = Some "http"
               , protocol = Some "TCP"
               , port = 80
-              , targetPort = Some (< Int : Natural | String : Text >.Int 9999)
+              , targetPort = Some
+                  (< Int : Natural | String : Text >.Int config.appPort)
               }
             ]
           , selector = [ { mapKey = "app", mapValue = config.name } ]
