@@ -22,6 +22,7 @@ let deployment
                 [ OpenShift.Container::{
                   , name = config.name
                   , image = Some config.image
+                  , env = config.envVars
                   , ports =
                     [ OpenShift.ContainerPort::{
                       , containerPort = config.appPort
