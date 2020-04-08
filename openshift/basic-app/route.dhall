@@ -14,7 +14,7 @@ let route
           , to = OpenShift.RouteTargetReference::{
             , kind = "Service"
             , name = config.name
-            , weight = 0
+            , weight = 100
             }
           }
         }
