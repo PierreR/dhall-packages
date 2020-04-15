@@ -36,6 +36,13 @@ let createApplication =
                       → typesUnion.PersistentVolumeClaim volumeClaim
                     )
                     config.volumeClaims
+                # Prelude.List.map
+                    OpenShift.ConfigMap.Type
+                    typesUnion
+                    (   λ(configMap : OpenShift.ConfigMap.Type)
+                      → typesUnion.ConfigMap configMap
+                    )
+                    config.configMaps
             }
 
 in  createApplication
