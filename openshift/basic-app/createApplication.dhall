@@ -1,3 +1,5 @@
+let Prelude = ./prelude.dhall
+
 let typesUnion = ./typesUnion.dhall
 
 let route = ./route.dhall
@@ -10,6 +12,9 @@ let Config = ./config.dhall
 
 let OpenShiftList = ./list.dhall
 
+let OpenShift =
+      ./openshift.dhall sha256:422477ee4999e20e3aa0486f9b25c5728e7e266d42b143b53578eff44e92f009
+
 let createApplication =
         λ(config : Config.Type)
       → let configuredService = service config
@@ -20,10 +25,17 @@ let createApplication =
 
         in  OpenShiftList::{
             , items =
-              [ typesUnion.Service configuredService
-              , typesUnion.Route configuredRoute
-              , typesUnion.Deployment configuredDeployment
-              ]
+                  [ typesUnion.Service configuredService
+                  , typesUnion.Route configuredRoute
+                  , typesUnion.Deployment configuredDeployment
+                  ]
+                # Prelude.List.map
+                    OpenShift.PersistentVolumeClaim.Type
+                    typesUnion
+                    (   λ(volumeClaim : OpenShift.PersistentVolumeClaim.Type)
+                      → typesUnion.PersistentVolumeClaim volumeClaim
+                    )
+                    config.volumeClaims
             }
 
 in  createApplication

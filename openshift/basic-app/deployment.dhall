@@ -37,8 +37,10 @@ let deployment
                       , containerPort = config.appPort
                       }
                     ]
+                  , volumeMounts = config.volumeMounts
                   }
                 ]
+              , volumes = config.volumes
               }
             }
           , replicas = Some config.replicas

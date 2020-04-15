@@ -13,6 +13,9 @@ in  { Type =
         , runAsRoot : Bool
         , runPrivileged : Bool
         , timeout : Text
+        , volumes : List OpenShift.Volume.Type
+        , volumeMounts : List OpenShift.VolumeMount.Type
+        , volumeClaims : List OpenShift.PersistentVolumeClaim.Type
         }
     , default =
         { name = ""
@@ -26,5 +29,8 @@ in  { Type =
         , runPrivileged = False
         , envVars = [] : List OpenShift.EnvVar.Type
         , timeout = "60s"
+        , volumes = [] : List OpenShift.Volume.Type
+        , volumeMounts = [] : List OpenShift.VolumeMount.Type
+        , volumeClaims = [] : List OpenShift.PersistentVolumeClaim.Type
         }
     }
