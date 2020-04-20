@@ -7,6 +7,7 @@ let route
     : Config.Type → OpenShift.Route.Type
     =   λ(config : Config.Type)
       → OpenShift.Route::{
+        , apiVersion = "route.openshift.io/v1"
         , metadata = OpenShift.ObjectMeta::{
           , name = config.name
           , namespace = Some config.name
