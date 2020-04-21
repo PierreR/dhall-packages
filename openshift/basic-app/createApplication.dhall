@@ -1,4 +1,4 @@
-let Prelude = ./prelude.dhall
+let map = ./map.dhall
 
 let typesUnion = ./typesUnion.dhall
 
@@ -29,14 +29,14 @@ let createApplication =
                   , typesUnion.Route configuredRoute
                   , typesUnion.Deployment configuredDeployment
                   ]
-                # Prelude.List.map
+                # map
                     OpenShift.PersistentVolumeClaim.Type
                     typesUnion
                     (   λ(volumeClaim : OpenShift.PersistentVolumeClaim.Type)
                       → typesUnion.PersistentVolumeClaim volumeClaim
                     )
                     config.volumeClaims
-                # Prelude.List.map
+                # map
                     OpenShift.ConfigMap.Type
                     typesUnion
                     (   λ(configMap : OpenShift.ConfigMap.Type)
