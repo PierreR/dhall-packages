@@ -17,6 +17,7 @@ in  { Type =
         , volumeMounts : List OpenShift.VolumeMount.Type
         , volumeClaims : List OpenShift.PersistentVolumeClaim.Type
         , configMaps : List OpenShift.ConfigMap.Type
+        , secrets : List OpenShift.Secret.Type
         }
     , default =
         { name = ""
@@ -34,5 +35,6 @@ in  { Type =
         , volumeMounts = [] : List OpenShift.VolumeMount.Type
         , volumeClaims = [] : List OpenShift.PersistentVolumeClaim.Type
         , configMaps = [] : List OpenShift.ConfigMap.Type
+        , secrets = [] : List OpenShift.Secret.Type
         }
     }

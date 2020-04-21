@@ -12,8 +12,7 @@ let Config = ./config.dhall
 
 let OpenShiftList = ./list.dhall
 
-let OpenShift =
-      ./openshift.dhall sha256:422477ee4999e20e3aa0486f9b25c5728e7e266d42b143b53578eff44e92f009
+let OpenShift = ./openshift.dhall
 
 let createApplication =
         λ(config : Config.Type)
@@ -43,6 +42,13 @@ let createApplication =
                       → typesUnion.ConfigMap configMap
                     )
                     config.configMaps
+                # map
+                    OpenShift.Secret.Type
+                    typesUnion
+                    (   λ(secret : OpenShift.Secret.Type)
+                      → typesUnion.Secret secret
+                    )
+                    config.secrets
             }
 
 in  createApplication
