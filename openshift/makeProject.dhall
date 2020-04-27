@@ -1,17 +1,14 @@
-let OpenShift = ./openshift.dhall
-
-let Config = ./config.dhall
+let OpenShift = ./types/OpenShift.dhall
 
 let project
-    : Config.Type → OpenShift.Project.Type
-    =   λ(config : Config.Type)
+    : Text → Text → OpenShift.Project.Type
+    =   λ(name : Text)
+      → λ(displayName : Text)
       → OpenShift.Project::{
         , metadata = OpenShift.ObjectMeta::{
-          , name = config.name
+          , name = name
           , annotations =
-            [ { mapKey = "openshift.io/display-name"
-              , mapValue = config.displayName
-              }
+            [ { mapKey = "openshift.io/display-name", mapValue = displayName }
             , { mapKey = "openshift.io/requester", mapValue = "cicd" }
             ]
           }
