@@ -1,0 +1,23 @@
+apiVersion: v1
+items:
+  - apiVersion: batch/v1beta1
+    kind: CronJob
+    metadata:
+      name: cron1
+      namespace: cron1
+    spec:
+      jobTemplate:
+        metadata:
+          name: cron1
+        spec:
+          template:
+            metadata:
+              labels:
+                parent: cron1
+              name: cron1
+            spec:
+              containers:
+                - image: cicd-docker.repository.irisnet.be/basic-task:0.2
+                  name: basic1
+      schedule: "*/1 * * * *"
+kind: List
