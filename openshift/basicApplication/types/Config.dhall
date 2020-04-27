@@ -1,38 +1,28 @@
-let OpenShift =
-      ./openshift.dhall sha256:422477ee4999e20e3aa0486f9b25c5728e7e266d42b143b53578eff44e92f009
+let OpenShift = ../../types/OpenShift.dhall
+
+let Container = ../../types/Container.dhall
 
 in  { Type =
         { name : Text
-        , appPort : Natural
-        , image : Text
         , domain : Text
         , displayName : Text
         , replicas : Natural
-        , envVars : List OpenShift.EnvVar.Type
         , enableTLS : Bool
-        , runAsRoot : Bool
-        , runPrivileged : Bool
+        , port : Natural
         , timeout : Text
         , volumes : List OpenShift.Volume.Type
-        , volumeMounts : List OpenShift.VolumeMount.Type
         , volumeClaims : List OpenShift.PersistentVolumeClaim.Type
         , configMaps : List OpenShift.ConfigMap.Type
         , secrets : List OpenShift.Secret.Type
+        , containers : List Container.Type
         }
     , default =
-        { name = ""
-        , appPort = 9999
-        , enableTLS = False
-        , image = ""
+        { enableTLS = False
         , domain = ""
         , displayName = ""
         , replicas = 1
-        , runAsRoot = False
-        , runPrivileged = False
-        , envVars = [] : List OpenShift.EnvVar.Type
         , timeout = "60s"
         , volumes = [] : List OpenShift.Volume.Type
-        , volumeMounts = [] : List OpenShift.VolumeMount.Type
         , volumeClaims = [] : List OpenShift.PersistentVolumeClaim.Type
         , configMaps = [] : List OpenShift.ConfigMap.Type
         , secrets = [] : List OpenShift.Secret.Type

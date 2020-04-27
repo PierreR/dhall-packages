@@ -1,8 +1,8 @@
-let OpenShift = ./openshift.dhall
+let OpenShift = ../types/OpenShift.dhall
 
-let Config = ./config.dhall
+let Config = ./types/Config.dhall
 
-let service
+let makeService
     : Config.Type → OpenShift.Service.Type
     =   λ(config : Config.Type)
       → OpenShift.Service::{
@@ -17,11 +17,11 @@ let service
               , protocol = Some "TCP"
               , port = if config.enableTLS then 443 else 80
               , targetPort = Some
-                  (< Int : Natural | String : Text >.Int config.appPort)
+                  (< Int : Natural | String : Text >.Int config.port)
               }
             ]
           , selector = [ { mapKey = "app", mapValue = config.name } ]
           }
         }
 
-in  service
+in  makeService
