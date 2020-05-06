@@ -1,14 +1,13 @@
-let
-  sources = import ./nix/sources.nix;
-  pkgs = import sources.nixpkgs { };
-in pkgs.mkShell {
-  name = "index-metadata";
+{ pkgs ? import <nixpkgs> { } }:
+with pkgs;
+
+mkShell {
   buildInputs = [
-    pkgs.gitAndTools.pre-commit
-    pkgs.cacert
-    pkgs.niv
-    pkgs.dhall-json
-    pkgs.dhall
+    gitAndTools.pre-commit
+    cacert
+    niv
+    dhall
+    dhall-json
   ];
   shellHook = ''
   '';
