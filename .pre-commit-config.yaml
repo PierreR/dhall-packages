@@ -1,67 +1,30 @@
 ---
 repos:
-  -
-    repo: 'https://github.com/pre-commit/pre-commit-hooks'
-    rev: v2.2.3
+  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
+    rev: v2.5.0
     hooks:
-      -
-        id: trailing-whitespace
-        stages:
-          - commit
-          - push
-      -
-        id: check-merge-conflict
-        stages:
-          - commit
-          - push
-  -
-    repo: 'https://github.com/jumanjihouse/pre-commit-hooks.git'
-    rev: 1.11.0
-    hooks:
-      -
-        id: shellcheck
-        stages:
-          - commit
-          - push
-        exclude: params.sh
-      -
-        id: shfmt
-        stages:
-          - commit
-          - push
-  -
-    repo: 'https://github.com/jorisroovers/gitlint.git'
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+  - repo: 'https://github.com/jorisroovers/gitlint.git'
     rev: v0.11.0
     hooks:
-      -
-        id: gitlint
+      - id: gitlint
         stages:
           - commit-msg
-  -
-    repo: local
+  - repo: local
     hooks:
-      -
-        id: format-dhall
+      - id: format-dhall
         name: 'Run dhall formatter'
         entry: 'make fmt'
         language: system
         pass_filenames: false
         types: [file]
-        files: \.dhall
-        stages:
-          - commit
-          - push
   -
     repo: local
     hooks:
-      -
-        id: lint-dhall
+      - id: lint-dhall
         name: 'Run dhall lint'
-        entry: 'make fmt'
+        entry: 'make lint'
         language: system
         pass_filenames: false
         types: [file]
-        files: \.dhall
-        stages:
-          - commit
-          - push
