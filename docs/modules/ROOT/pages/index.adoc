@@ -1,0 +1,15 @@
+# The Dhall configuration language
+Pierre Radermecker <pradermecker@cirb.brussels>
+:language: dhall
+:experimental:
+:autofit-option:
+
+## Overview
+
+====
+Dhall version: ${dhall_version} (standard:  {dhall_stdversion})
+====
+
+## Resources
+
+* https://dhall-lang.org[Official website]

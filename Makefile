@@ -1,3 +1,6 @@
+precommit:
+	pre-commit run --all-files
+
 fmt:
 	find . -name '*.dhall' -exec dhall format --inplace {} \;
 

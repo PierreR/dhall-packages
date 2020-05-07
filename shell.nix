@@ -3,11 +3,12 @@ with pkgs;
 
 mkShell {
   buildInputs = [
+    asciidoctor
     gitAndTools.pre-commit
     cacert
     niv
-    dhall
-    dhall-json
+    unstable.dhall
+    unstable.dhall-json
   ];
   shellHook = ''
   '';
