@@ -4,8 +4,8 @@ let Config = ../schemas/Application.dhall
 
 let makeRoute
     : Config.Type → openshift.Route.Type
-    =   λ(config : Config.Type)
-      → openshift.Route::{
+    = λ(config : Config.Type) →
+        openshift.Route::{
         , apiVersion = "route.openshift.io/v1"
         , metadata = openshift.ObjectMeta::{
           , name = config.name
@@ -25,10 +25,8 @@ let makeRoute
             , weight = 100
             }
           , tls =
-                    if config.enableTLS
-
+              if    config.enableTLS
               then  Some openshift.TLSConfig::{ termination = "edge" }
-
               else  None openshift.TLSConfig.Type
           }
         }

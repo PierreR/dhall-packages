@@ -5,9 +5,9 @@
     , `limits.memory` : Text
     }
 , default =
-    { `requests.cpu` = "1"
-    , `requests.memory` = "1Gi"
-    , `limits.cpu` = "2"
-    , `limits.memory` = "2Gi"
-    }
+  { `requests.cpu` = "1"
+  , `requests.memory` = "1Gi"
+  , `limits.cpu` = "2"
+  , `limits.memory` = "2Gi"
+  }
 }

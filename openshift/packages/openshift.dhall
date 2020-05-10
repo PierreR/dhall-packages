@@ -3,15 +3,12 @@ let Openshift =
 
 in    Openshift
     ∧ { List =
-          { Type =
-              { apiVersion : Text
-              , kind : Text
-              , items : List Openshift.Resource
-              }
-          , default =
-              { apiVersion = "v1"
-              , kind = "List"
-              , items = [] : List Openshift.Resource
-              }
+        { Type =
+            { apiVersion : Text, kind : Text, items : List Openshift.Resource }
+        , default =
+          { apiVersion = "v1"
+          , kind = "List"
+          , items = [] : List Openshift.Resource
           }
+        }
       }

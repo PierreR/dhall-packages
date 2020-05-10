@@ -10,8 +10,8 @@ let makeContainer = ./makeContainer.dhall
 
 let makeDeployment
     : Config.Type → openshift.Deployment.Type
-    =   λ(config : Config.Type)
-      → openshift.Deployment::{
+    = λ(config : Config.Type) →
+        openshift.Deployment::{
         , metadata = openshift.ObjectMeta::{
           , name = config.name
           , namespace = Some config.name

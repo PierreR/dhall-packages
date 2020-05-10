@@ -17,14 +17,14 @@ in  { Type =
         , containers : List Container.Type
         }
     , default =
-        { enableTLS = False
-        , domain = ""
-        , displayName = ""
-        , replicas = 1
-        , timeout = "60s"
-        , volumes = [] : List openshift.Volume.Type
-        , volumeClaims = [] : List openshift.PersistentVolumeClaim.Type
-        , configMaps = [] : List openshift.ConfigMap.Type
-        , secrets = [] : List openshift.Secret.Type
-        }
+      { enableTLS = False
+      , domain = ""
+      , displayName = ""
+      , replicas = 1
+      , timeout = "60s"
+      , volumes = [] : List openshift.Volume.Type
+      , volumeClaims = [] : List openshift.PersistentVolumeClaim.Type
+      , configMaps = [] : List openshift.ConfigMap.Type
+      , secrets = [] : List openshift.Secret.Type
+      }
     }

@@ -9,8 +9,8 @@ let App = ../schemas/App.dhall
 let k8s = packages.kubernetes.k8s.`1-14`
 
 let makeArgo =
-        λ(config : App.Type)
-      → argocd.Application::{
+      λ(config : App.Type) →
+        argocd.Application::{
         , metadata = k8s.ObjectMeta::{
           , name = config.name
           , namespace = Some "argocd"

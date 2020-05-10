@@ -11,8 +11,8 @@ let Config = ../schemas/Application.dhall
 let openshift = ../packages/openshift.dhall
 
 let makeApplication =
-        λ(config : Config.Type)
-      → let configuredService = makeService config
+      λ(config : Config.Type) →
+        let configuredService = makeService config
 
         let configuredRoute = makeRoute config
 
@@ -27,22 +27,22 @@ let makeApplication =
                 # Prelude.map
                     openshift.PersistentVolumeClaim.Type
                     openshift.Resource
-                    (   λ(volumeClaim : openshift.PersistentVolumeClaim.Type)
-                      → openshift.Resource.PersistentVolumeClaim volumeClaim
+                    ( λ(volumeClaim : openshift.PersistentVolumeClaim.Type) →
+                        openshift.Resource.PersistentVolumeClaim volumeClaim
                     )
                     config.volumeClaims
                 # Prelude.map
                     openshift.ConfigMap.Type
                     openshift.Resource
-                    (   λ(configMap : openshift.ConfigMap.Type)
-                      → openshift.Resource.ConfigMap configMap
+                    ( λ(configMap : openshift.ConfigMap.Type) →
+                        openshift.Resource.ConfigMap configMap
                     )
                     config.configMaps
                 # Prelude.map
                     openshift.Secret.Type
                     openshift.Resource
-                    (   λ(secret : openshift.Secret.Type)
-                      → openshift.Resource.Secret secret
+                    ( λ(secret : openshift.Secret.Type) →
+                        openshift.Resource.Secret secret
                     )
                     config.secrets
             }

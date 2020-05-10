@@ -11,12 +11,12 @@ let Container =
           , volumeMounts : List openshift.VolumeMount.Type
           }
       , default =
-          { runAsRoot = False
-          , runPrivileged = False
-          , envVars = [] : List openshift.EnvVar.Type
-          , volumeMounts = [] : List openshift.VolumeMount.Type
-          , ports = [] : List Natural
-          }
+        { runAsRoot = False
+        , runPrivileged = False
+        , envVars = [] : List openshift.EnvVar.Type
+        , volumeMounts = [] : List openshift.VolumeMount.Type
+        , ports = [] : List Natural
+        }
       }
 
 in  Container

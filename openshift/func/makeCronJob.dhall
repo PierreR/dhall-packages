@@ -10,8 +10,8 @@ let makeContainer = ./makeContainer.dhall
 
 let makeCronJob
     : Config.Type → openshift.CronJob.Type
-    =   λ(config : Config.Type)
-      → openshift.CronJob::{
+    = λ(config : Config.Type) →
+        openshift.CronJob::{
         , metadata = openshift.ObjectMeta::{
           , name = config.name
           , namespace = Some config.name

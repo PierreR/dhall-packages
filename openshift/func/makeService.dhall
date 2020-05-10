@@ -4,8 +4,8 @@ let Config = ../schemas/Application.dhall
 
 let makeService
     : Config.Type → openshift.Service.Type
-    =   λ(config : Config.Type)
-      → openshift.Service::{
+    = λ(config : Config.Type) →
+        openshift.Service::{
         , metadata = openshift.ObjectMeta::{
           , name = config.name
           , namespace = Some config.name
