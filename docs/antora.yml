@@ -1,9 +1,0 @@
-name: dhall
-title: Dhall
-version: master
-nav:
-  - modules/ROOT/nav.adoc
-asciidoc:
-  attributes:
-    dhall_version: "1.32"
-    dhall_stdversion: "v16.0.0"
