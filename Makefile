@@ -1,3 +1,6 @@
+examples_dir := ./openshift/examples
+examples_files := application1.yaml cron1.yaml quota1.yaml
+
 precommit:
 	pre-commit run --all-files
 
@@ -10,5 +13,7 @@ lint:
 freeze:
 	find . -name 'package.dhall' -exec dhall --ascii freeze --inplace {} --all \;
 
-examples:
-	find . \( -type f -and -path '*/examples/*.dhall' \) -exec sh -c 'x="{}"; dhall-to-yaml --explain --file $$x --omit-empty > $${x/.dhall/.yaml}' \;
+$(examples_dir)/%.yaml: $(examples_dir)/%.dhall
+	dhall-to-yaml --explain --file $< --omit-empty > $@
+
+examples: $(examples_files:%.yaml=${examples_dir}/%.yaml)

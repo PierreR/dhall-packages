@@ -7,8 +7,8 @@ mkShell {
     gitAndTools.pre-commit
     cacert
     niv
-    unstable.dhall
-    unstable.dhall-json
+    dhall
+    dhall-json
   ];
   shellHook = ''
   '';

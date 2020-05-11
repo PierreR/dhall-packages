@@ -7,9 +7,10 @@ Pierre Radermecker <pradermecker@cirb.brussels>
 ## Overview
 
 ====
-Dhall version: ${dhall_version} (standard:  {dhall_stdversion})
+Dhall version: {dhall_version} (standard:  {dhall_stdversion})
 ====
 
 ## Resources
 
 * https://dhall-lang.org[Official website]
+* https://christine.website/blog/dhall-kubernetes-2020-01-25[Blog about dhall-kubernetes]
