@@ -24,7 +24,7 @@ let makeCronJob
               , template = openshift.PodTemplateSpec::{
                 , metadata = openshift.ObjectMeta::{
                   , name = config.name
-                  , labels = [ { mapKey = "parent", mapValue = config.name } ]
+                  , labels = toMap { parent = config.name }
                   }
                 , spec = Some openshift.PodSpec::{
                   , containers =

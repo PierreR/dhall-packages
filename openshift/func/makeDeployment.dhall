@@ -18,12 +18,12 @@ let makeDeployment
           }
         , spec = Some openshift.DeploymentSpec::{
           , selector = openshift.LabelSelector::{
-            , matchLabels = [ { mapKey = "app", mapValue = config.name } ]
+            , matchLabels = toMap { app = config.name }
             }
           , template = openshift.PodTemplateSpec::{
             , metadata = openshift.ObjectMeta::{
               , name = config.name
-              , labels = [ { mapKey = "app", mapValue = config.name } ]
+              , labels = toMap { app = config.name }
               }
             , spec = Some openshift.PodSpec::{
               , containers =

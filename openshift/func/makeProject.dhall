@@ -7,10 +7,10 @@ let project
         openshift.Project::{
         , metadata = openshift.ObjectMeta::{
           , name
-          , annotations =
-            [ { mapKey = "openshift.io/display-name", mapValue = displayName }
-            , { mapKey = "openshift.io/requester", mapValue = "cicd" }
-            ]
+          , annotations = toMap
+              { `openshift.io/display-name` = displayName
+              , `openshift.io/requester` = "cicd"
+              }
           }
         }
 
