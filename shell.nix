@@ -3,7 +3,6 @@ with pkgs;
 
 mkShell {
   buildInputs = [
-    asciidoctor
     gitAndTools.pre-commit
     cacert
     niv

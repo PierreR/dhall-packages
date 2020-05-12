@@ -27,11 +27,3 @@ repos:
         language: system
         pass_filenames: false
         types: [file]
-  - repo: local
-    hooks:
-      - id: check-asciidoc
-        name: 'Check asciidoc'
-        entry: 'asciidoctor --failure-level=WARNING -o /dev/null'
-        pass_filenames: true
-        language: system
-        files: '.*\.adoc'
