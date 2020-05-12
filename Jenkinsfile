@@ -15,6 +15,14 @@ pipeline {
         }
       }
     }
+    stage('Make examples') {
+      steps {
+        script {
+          make = new brussels.bric.Make()
+          make.make(target: 'examples', useNixShell: true, nixPure: false)
+        }
+      }
+    }
   }
   post {
     success {
