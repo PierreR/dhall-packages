@@ -20,7 +20,7 @@ let makeService
                   (< Int : Natural | String : Text >.Int config.port)
               }
             ]
-          , selector = [ { mapKey = "app", mapValue = config.name } ]
+          , selector = toMap { "app" = config.name }
           }
         }
 
