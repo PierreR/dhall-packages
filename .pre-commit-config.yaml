@@ -13,14 +13,6 @@ repos:
           - commit-msg
   - repo: local
     hooks:
-      - id: format-dhall
-        name: 'Run dhall formatter'
-        entry: 'make fmt'
-        language: system
-        pass_filenames: false
-        types: [file]
-  - repo: local
-    hooks:
       - id: lint-dhall
         name: 'Run dhall lint'
         entry: 'make lint'
