@@ -1,6 +1,6 @@
 openshift_dir = ./openshift
 openshift_examples_dir := ./${openshift_dir}/examples
-openshift_examples_files := application1.yaml cron1.yaml quota1.yaml
+openshift_examples_files := application1.yaml cron1.yaml quota1.yaml project1.yaml app-shell1.yaml
 openshift_deps := $(openshift_dir)/func/*.dhall $(openshift_dir)/schemas/*.dhall
 
 argo_examples_dir := ./argo/examples

@@ -1,1 +1,1 @@
-let ocp = ../package.dhall in ocp.makeQuota "quota1" ocp.Quota::{=}
+let ocp = ../package.dhall in ocp.makeQuota "my-namespace" ocp.Quota::{=}
