@@ -7,6 +7,6 @@ let openshift =
       }
 
 let func =
-      ./func/func.dhall sha256:5daf0001ed538a149a2774816e46a4d8826d5950a379de04f6fdc67182506dc1
+      ./func/func.dhall sha256:c6aa54af068ecf1fa027e628120f5b8ee7c499f8457c5836c8c1a5e826b48aab
 
 in  openshift ∧ schemas ∧ func

@@ -11,6 +11,7 @@ items:
     kind: ResourceQuota
     metadata:
       name: cicd-doc-dev-quota
+      namespace: cicd-doc-dev
     spec:
       hard:
         limits.cpu: '2'
