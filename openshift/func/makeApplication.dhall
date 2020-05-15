@@ -6,23 +6,23 @@ let makeService = ./makeService.dhall
 
 let makeDeployment = ./makeDeployment.dhall
 
-let Config = ../schemas/Application.dhall
+let Application = ../schemas/Application.dhall
 
 let openshift = ../packages/openshift.dhall
 
 let makeApplication =
-      λ(config : Config.Type) →
-        let configuredService = makeService config
+      λ(cfg : Application.Type) →
+        let service = makeService cfg.name cfg.enableTLS cfg.service
 
-        let configuredRoute = makeRoute config
+        let route = makeRoute cfg.name cfg.enableTLS cfg.route
 
-        let configuredDeployment = makeDeployment config
+        let deployment = makeDeployment cfg.name cfg.deployment
 
         in  openshift.List::{
             , items =
-                  [ openshift.Resource.Service configuredService
-                  , openshift.Resource.Route configuredRoute
-                  , openshift.Resource.Deployment configuredDeployment
+                  [ openshift.Resource.Service service
+                  , openshift.Resource.Route route
+                  , openshift.Resource.Deployment deployment
                   ]
                 # Prelude.map
                     openshift.PersistentVolumeClaim.Type
@@ -30,21 +30,21 @@ let makeApplication =
                     ( λ(volumeClaim : openshift.PersistentVolumeClaim.Type) →
                         openshift.Resource.PersistentVolumeClaim volumeClaim
                     )
-                    config.volumeClaims
+                    cfg.volumeClaims
                 # Prelude.map
                     openshift.ConfigMap.Type
                     openshift.Resource
                     ( λ(configMap : openshift.ConfigMap.Type) →
                         openshift.Resource.ConfigMap configMap
                     )
-                    config.configMaps
+                    cfg.configMaps
                 # Prelude.map
                     openshift.Secret.Type
                     openshift.Resource
                     ( λ(secret : openshift.Secret.Type) →
                         openshift.Resource.Secret secret
                     )
-                    config.secrets
+                    cfg.secrets
             }
 
 in  makeApplication

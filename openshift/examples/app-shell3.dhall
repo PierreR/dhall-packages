@@ -12,6 +12,8 @@ let appShell =
         , `requests.cpu` = "1"
         , `limits.memory` = "2Gi"
         }
+      , service = Some ocp.Service::{ targetPort = 8080 }
+      , route = Some ocp.Route::{ domain = "docs.cicd.cirb.lan" }
       }
 
 in  ocp.makeAppShell appShell

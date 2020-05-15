@@ -3,7 +3,7 @@ items:
   - apiVersion: v1
     kind: Service
     metadata:
-      name: basic1
+      name: basic1-srv
       namespace: basic1
     spec:
       ports:
@@ -13,19 +13,20 @@ items:
           targetPort: 9999
       selector:
         app: basic1
+      type: ClusterIP
   - apiVersion: route.openshift.io/v1
     kind: Route
     metadata:
       annotations:
         haproxy.router.openshift.io/timeout: "60s"
-      name: basic1
+      name: basic1-route
       namespace: basic1
     spec:
       host: basic1.cirb.lan
       path: /
       to:
         kind: Service
-        name: basic1
+        name: basic1-srv
         weight: 100
   - apiVersion: apps/v1
     kind: Deployment
@@ -33,7 +34,7 @@ items:
       name: basic1
       namespace: basic1
     spec:
-      replicas: 1
+      replicas: 2
       selector:
         matchLabels:
           app: basic1
