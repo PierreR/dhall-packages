@@ -1,15 +1,16 @@
 let openshift = ../packages/openshift.dhall
 
+let Project = ../schemas/Project.dhall
+
 let project
-    : Text → Text → openshift.Project.Type
-    = λ(name : Text) →
-      λ(displayName : Text) →
+    : Project → openshift.Project.Type
+    = λ(project : Project) →
         openshift.Project::{
         , metadata = openshift.ObjectMeta::{
-          , name
+          , name = project.name
           , annotations = toMap
-              { `openshift.io/display-name` = displayName
-              , `openshift.io/requester` = "cicd"
+              { `openshift.io/display-name` = project.displayName
+              , `openshift.io/requester` = project.requester
               }
           }
         }

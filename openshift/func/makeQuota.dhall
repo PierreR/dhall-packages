@@ -1,9 +1,9 @@
 let openshift = ../packages/openshift.dhall
 
 let quota =
-      λ(namespace : Text) →
+      λ(name : Text) →
       λ(config : (../schemas/Quota.dhall).Type) →
-        let name = namespace ++ "-quota"
+        let name = name ++ "-quota"
 
         in  openshift.ResourceQuota::{
             , metadata = openshift.ObjectMeta::{ name }

@@ -3,4 +3,5 @@
 , Container = ./Container.dhall
 , Cron = ./Cron.dhall
 , Quota = ./Quota.dhall
+, Project = ./Project.dhall
 }

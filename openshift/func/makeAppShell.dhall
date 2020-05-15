@@ -10,9 +10,9 @@ let openshift = ../packages/openshift.dhall
 
 let makeAppShell =
       λ(appShell : AppShell.Type) →
-        let project = makeProject appShell.namespace appShell.displayName
+        let project = makeProject appShell.project
 
-        let quota = makeQuota appShell.namespace Quota::appShell.quota
+        let quota = makeQuota appShell.project.name Quota::appShell.quota
 
         in  openshift.List::{
             , items =
