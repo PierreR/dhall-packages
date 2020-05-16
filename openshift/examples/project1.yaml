@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Project
-metadata:
-  annotations:
-    openshift.io/display-name: display-project1
-    openshift.io/requester: cicd
-  name: project1
