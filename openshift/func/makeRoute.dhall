@@ -19,7 +19,7 @@ let makeRoute
               }
             , spec = openshift.RouteSpec::{
               , host = cfg.domain
-              , path = Some "/"
+              , path = cfg.path
               , to = openshift.RouteTargetReference::{
                 , kind = "Service"
                 , name = namespace ++ "-srv"

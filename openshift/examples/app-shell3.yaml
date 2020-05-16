@@ -41,7 +41,6 @@ items:
       namespace: cicd-doc-dev
     spec:
       host: docs.cicd.cirb.lan
-      path: /
       to:
         kind: Service
         name: cicd-doc-dev-srv
