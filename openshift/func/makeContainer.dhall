@@ -1,8 +1,8 @@
+let map = (../../Prelude.dhall).List.map
+
 let Container = ../schemas/Container.dhall
 
 let openshift = ../packages/openshift.dhall
-
-let Prelude = ../Prelude.dhall
 
 let makeContainer
     : Container.Type → openshift.Container.Type
@@ -21,7 +21,7 @@ let makeContainer
                     }
             else  None openshift.SecurityContext.Type
         , ports =
-            Prelude.map
+            map
               Natural
               openshift.ContainerPort.Type
               ( λ(port : Natural) →

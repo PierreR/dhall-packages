@@ -1,5 +1,5 @@
 -- The name of the deployment is the namespace of the application
-let Prelude = ../Prelude.dhall
+let map = (../../Prelude.dhall).List.map
 
 let openshift = ../packages/openshift.dhall
 
@@ -29,7 +29,7 @@ let makeDeployment
               }
             , spec = Some openshift.PodSpec::{
               , containers =
-                  Prelude.map
+                  map
                     Container.Type
                     openshift.Container.Type
                     makeContainer

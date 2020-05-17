@@ -1,4 +1,4 @@
-let Prelude = ../Prelude.dhall
+let map = (../../Prelude.dhall).List.map
 
 let Container = ../schemas/Container.dhall
 
@@ -28,13 +28,13 @@ let makeCronJob
                   }
                 , spec = Some openshift.PodSpec::{
                   , containers =
-                      Prelude.map
+                      map
                         Container.Type
                         openshift.Container.Type
                         makeContainer
                         config.containers
                   , initContainers =
-                      Prelude.map
+                      map
                         Container.Type
                         openshift.Container.Type
                         makeContainer

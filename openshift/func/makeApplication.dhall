@@ -1,4 +1,4 @@
-let Prelude = ../Prelude.dhall
+let map = (../../Prelude.dhall).List.map
 
 let makeRoute = ./makeRoute.dhall
 
@@ -24,21 +24,21 @@ let makeApplication =
                   , openshift.Resource.Route route
                   , openshift.Resource.Deployment deployment
                   ]
-                # Prelude.map
+                # map
                     openshift.PersistentVolumeClaim.Type
                     openshift.Resource
                     ( λ(volumeClaim : openshift.PersistentVolumeClaim.Type) →
                         openshift.Resource.PersistentVolumeClaim volumeClaim
                     )
                     cfg.volumeClaims
-                # Prelude.map
+                # map
                     openshift.ConfigMap.Type
                     openshift.Resource
                     ( λ(configMap : openshift.ConfigMap.Type) →
                         openshift.Resource.ConfigMap configMap
                     )
                     cfg.configMaps
-                # Prelude.map
+                # map
                     openshift.Secret.Type
                     openshift.Resource
                     ( λ(secret : openshift.Secret.Type) →
