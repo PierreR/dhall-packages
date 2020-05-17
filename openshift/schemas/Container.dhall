@@ -4,18 +4,18 @@ let Container =
       { Type =
           { name : Text
           , image : Text
-          , envVars : List openshift.EnvVar.Type
+          , envVars : Optional (List openshift.EnvVar.Type)
           , runAsRoot : Bool
           , runPrivileged : Bool
-          , ports : List Natural
-          , volumeMounts : List openshift.VolumeMount.Type
+          , ports : Optional (List Natural)
+          , volumeMounts : Optional (List openshift.VolumeMount.Type)
           }
       , default =
         { runAsRoot = False
         , runPrivileged = False
-        , envVars = [] : List openshift.EnvVar.Type
-        , volumeMounts = [] : List openshift.VolumeMount.Type
-        , ports = [] : List Natural
+        , envVars = None (List openshift.EnvVar.Type)
+        , volumeMounts = None (List openshift.VolumeMount.Type)
+        , ports = None (List Natural)
         }
       }
 

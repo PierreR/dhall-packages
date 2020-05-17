@@ -12,10 +12,12 @@ let makeRoute
         in  openshift.Route::{
             , apiVersion = cfg.apiVersion
             , metadata = openshift.ObjectMeta::{
-              , name
+              , name = Some name
               , namespace = Some namespace
-              , annotations = toMap
-                  { `haproxy.router.openshift.io/timeout` = cfg.timeout }
+              , annotations = Some
+                  ( toMap
+                      { `haproxy.router.openshift.io/timeout` = cfg.timeout }
+                  )
               }
             , spec = openshift.RouteSpec::{
               , host = cfg.domain

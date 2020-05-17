@@ -11,11 +11,11 @@ let makeService
 
         in  openshift.Service::{
             , metadata = openshift.ObjectMeta::{
-              , name
+              , name = Some name
               , namespace = Some namespace
               }
             , spec = Some openshift.ServiceSpec::{
-              , ports =
+              , ports = Some
                 [ openshift.ServicePort::{
                   , name = Some "http"
                   , protocol = Some srv.protocol
@@ -24,7 +24,7 @@ let makeService
                       (< Int : Natural | String : Text >.Int srv.targetPort)
                   }
                 ]
-              , selector = toMap { app = namespace }
+              , selector = Some (toMap { app = namespace })
               , type = Some srv.type
               }
             }

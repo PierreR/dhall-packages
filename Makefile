@@ -19,7 +19,7 @@ freeze:
 	dhall freeze --all --inplace ./$(dir)/package.dhall;
 
 $(openshift_examples_dir)/%.yaml: $(openshift_examples_dir)/%.dhall $(openshift_deps)
-	dhall-to-yaml --explain --file $< --omit-empty > $@
+	dhall-to-yaml --explain --file $< > $@
 
 $(argo_examples_dir)/%.yaml: $(argo_examples_dir)/%.dhall
 	dhall-to-yaml --explain --file $< --omit-empty > $@

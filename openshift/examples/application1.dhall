@@ -10,7 +10,7 @@ let configuration =
         , containers =
           [ ocp.Container::{
             , name = "basic1"
-            , ports = [ 9999 ]
+            , ports = Some [ 9999 ]
             , image = "cicd-docker.repository.irisnet.be/basic-app:0.2"
             }
           ]

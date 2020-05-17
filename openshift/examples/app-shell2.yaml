@@ -18,4 +18,31 @@ items:
         limits.memory: "2Gi"
         requests.cpu: '1'
         requests.memory: "1Gi"
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: cicd-doc-dev-srv
+      namespace: cicd-doc-dev
+    spec:
+      ports:
+        - name: http
+          port: 80
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: cicd-doc-dev
+      type: ClusterIP
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+        haproxy.router.openshift.io/timeout: "60s"
+      name: cicd-doc-dev-route
+      namespace: cicd-doc-dev
+    spec:
+      host: docs.cicd.cirb.lan
+      to:
+        kind: Service
+        name: cicd-doc-dev-srv
+        weight: 100
 kind: List

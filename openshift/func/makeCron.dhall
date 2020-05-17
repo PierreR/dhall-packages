@@ -1,4 +1,4 @@
-let map = (../../Prelude.dhall).List.map
+let List/map = (../../Prelude.dhall).List.map
 
 let Cron = ../schemas/Cron.dhall
 
@@ -13,14 +13,14 @@ let makeCron =
         in  openshift.List::{
             , items =
                   [ openshift.Resource.CronJob configuredCronJob ]
-                # map
+                # List/map
                     openshift.ConfigMap.Type
                     openshift.Resource
                     ( λ(configMap : openshift.ConfigMap.Type) →
                         openshift.Resource.ConfigMap configMap
                     )
                     config.configMaps
-                # map
+                # List/map
                     openshift.Secret.Type
                     openshift.Resource
                     ( λ(secret : openshift.Secret.Type) →

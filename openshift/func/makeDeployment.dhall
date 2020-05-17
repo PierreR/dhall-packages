@@ -1,5 +1,5 @@
 -- The name of the deployment is the namespace of the application
-let map = (../../Prelude.dhall).List.map
+let List/map = (../../Prelude.dhall).List.map
 
 let openshift = ../packages/openshift.dhall
 
@@ -15,21 +15,21 @@ let makeDeployment
       λ(cfg : Deployment.Type) →
         openshift.Deployment::{
         , metadata = openshift.ObjectMeta::{
-          , name = namespace
+          , name = Some namespace
           , namespace = Some namespace
           }
         , spec = Some openshift.DeploymentSpec::{
           , selector = openshift.LabelSelector::{
-            , matchLabels = toMap { app = namespace }
+            , matchLabels = Some (toMap { app = namespace })
             }
           , template = openshift.PodTemplateSpec::{
             , metadata = openshift.ObjectMeta::{
-              , name = namespace
-              , labels = toMap { app = namespace }
+              , name = Some namespace
+              , labels = Some (toMap { app = namespace })
               }
             , spec = Some openshift.PodSpec::{
               , containers =
-                  map
+                  List/map
                     Container.Type
                     openshift.Container.Type
                     makeContainer

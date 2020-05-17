@@ -7,10 +7,12 @@ let quota =
 
         in  openshift.ResourceQuota::{
             , metadata = openshift.ObjectMeta::{
-              , name
+              , name = Some name
               , namespace = Some namespace
               }
-            , spec = Some openshift.ResourceQuotaSpec::{ hard = toMap config }
+            , spec = Some openshift.ResourceQuotaSpec::{
+              , hard = Some (toMap config)
+              }
             }
 
 in  quota
