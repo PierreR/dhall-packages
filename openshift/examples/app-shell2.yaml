@@ -35,10 +35,41 @@ items:
           name: cicd-doc-dev
         spec:
           containers:
-            - image: cicd-docker.repository.irisnet.be/cicd-docs
+            - env:
+                - name: NIX_PATH
+                  value: nixpkgs-overlays=http://stash.cirb.lan/CICD/nixpkgs-overlays/archive/master.tar.gz
+              image: cicd-docker.repository.irisnet.be/cicd-docs
               name: cicd-docs
               ports:
                 - containerPort: 8080
+              volumeMounts:
+                - mountPath: /etc/data
+                  name: test-data
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: nixery-storage
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "10Gi"
+      storageClassName: slow
+      volumeName: pv-nfs-sbx-vol04
+  - apiVersion: v1
+    data:
+      test.conf: Here is the content of the test.conf file
+    kind: ConfigMap
+    metadata:
+      name: test-data
+  - apiVersion: v1
+    data:
+      test.crt: Please encrypt this file
+    kind: Secret
+    metadata:
+      name: test.crt
+    type: Opaque
   - apiVersion: v1
     kind: Service
     metadata:

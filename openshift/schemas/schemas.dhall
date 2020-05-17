@@ -7,4 +7,5 @@
 , Deployment = ./Deployment.dhall
 , Service = ./Service.dhall
 , Route = ./Route.dhall
+, Secret = ./Secret.dhall
 }

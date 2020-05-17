@@ -1,3 +1,5 @@
+let List/map = (../../Prelude.dhall).List.map
+
 let openshift = ../packages/openshift.dhall
 
 let makeProject = ./makeProject.dhall
@@ -10,6 +12,8 @@ let makeService = ./makeService.dhall
 
 let makeRoute = ./makeRoute.dhall
 
+let AppShell = ../schemas/AppShell.dhall
+
 let Quota = ../schemas/Quota.dhall
 
 let Deployment = ../schemas/Deployment.dhall
@@ -17,8 +21,6 @@ let Deployment = ../schemas/Deployment.dhall
 let Service = ../schemas/Service.dhall
 
 let Route = ../schemas/Route.dhall
-
-let AppShell = ../schemas/AppShell.dhall
 
 let makeAppShell =
       λ(app : AppShell.Type) →
@@ -67,11 +69,59 @@ let makeAppShell =
                 }
                 app.route
 
+        let volumeClaimResource =
+              merge
+                { None = [] : List openshift.Resource
+                , Some =
+                    λ(pvcs : List openshift.PersistentVolumeClaim.Type) →
+                      List/map
+                        openshift.PersistentVolumeClaim.Type
+                        openshift.Resource
+                        ( λ(pvc : openshift.PersistentVolumeClaim.Type) →
+                            openshift.Resource.PersistentVolumeClaim pvc
+                        )
+                        pvcs
+                }
+                app.volumeClaims
+
+        let secretResource =
+              merge
+                { None = [] : List openshift.Resource
+                , Some =
+                    λ(secrets : List openshift.Secret.Type) →
+                      List/map
+                        openshift.Secret.Type
+                        openshift.Resource
+                        ( λ(secret : openshift.Secret.Type) →
+                            openshift.Resource.Secret secret
+                        )
+                        secrets
+                }
+                app.secrets
+
+        let configMapResource =
+              merge
+                { None = [] : List openshift.Resource
+                , Some =
+                    λ(cms : List openshift.ConfigMap.Type) →
+                      List/map
+                        openshift.ConfigMap.Type
+                        openshift.Resource
+                        ( λ(cm : openshift.ConfigMap.Type) →
+                            openshift.Resource.ConfigMap cm
+                        )
+                        cms
+                }
+                app.configMaps
+
         let items =
                 [ openshift.Resource.Project project
                 , openshift.Resource.ResourceQuota quota
                 ]
               # deploymentResource
+              # volumeClaimResource
+              # configMapResource
+              # secretResource
               # serviceResource
               # routeResource
 
