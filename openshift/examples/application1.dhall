@@ -1,14 +1,14 @@
-let ocp = ../package.dhall
+let oc = ../package.dhall
 
 let configuration =
-      ocp.Application::{
+      oc.Application::{
       , name = "basic1"
-      , route = ocp.Route::{ domain = "basic1.cirb.lan", path = Some "/" }
-      , service = ocp.Service::{ targetPort = 9999 }
-      , deployment = ocp.Deployment::{
+      , route = oc.Route::{ domain = "basic1.cirb.lan", path = Some "/" }
+      , service = oc.Service::{ targetPort = 9999 }
+      , deployment = oc.Deployment::{
         , replicas = 2
         , containers =
-          [ ocp.Container::{
+          [ oc.Container::{
             , name = "basic1"
             , ports = Some [ 9999 ]
             , image = "cicd-docker.repository.irisnet.be/basic-app:0.2"
@@ -17,4 +17,4 @@ let configuration =
         }
       }
 
-in  ocp.makeApplication configuration
+in  oc.makeApplication configuration

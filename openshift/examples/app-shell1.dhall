@@ -1,7 +1,7 @@
-let ocp = ../package.dhall
+let oc = ../package.dhall
 
 let appShell =
-      ocp.AppShell::{
+      oc.AppShell::{
       , project =
         { name = "cicd-doc-dev"
         , displayName = "cicd doc for docs.cicd.cirb.lan"
@@ -9,4 +9,4 @@ let appShell =
         }
       }
 
-in  ocp.makeAppShell appShell
+in  oc.makeAppShell appShell
