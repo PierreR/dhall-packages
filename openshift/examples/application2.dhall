@@ -67,7 +67,7 @@ let application =
               )
           }
         ]
-      , service = Some oc.Service::{ targetPort = 8080 }
+      , service = Some oc.Service::{ port = 8080 }
       , route = Some oc.Route::{ domain = "docs.cicd.cirb.lan" }
       }
 

@@ -3,9 +3,8 @@ let openshift = ../packages/openshift.dhall
 let Route = ../schemas/Route.dhall
 
 let makeRoute
-    : Text → Bool → Route.Type → openshift.Route.Type
+    : Text → Route.Type → openshift.Route.Type
     = λ(namespace : Text) →
-      λ(enableTLS : Bool) →
       λ(cfg : Route.Type) →
         let name = namespace ++ "-route"
 
@@ -28,7 +27,7 @@ let makeRoute
                 , weight = 100
                 }
               , tls =
-                  if    enableTLS
+                  if    cfg.enableTLS
                   then  Some openshift.TLSConfig::{ termination = "edge" }
                   else  None openshift.TLSConfig.Type
               }

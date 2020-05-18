@@ -47,11 +47,7 @@ let makeApplication =
                 , Some =
                     λ(srv : Service.Type) →
                       [ openshift.Resource.Service
-                          ( makeService
-                              app.project.name
-                              app.enableTLS
-                              Service::srv
-                          )
+                          (makeService app.project.name Service::srv)
                       ]
                 }
                 app.service
@@ -62,11 +58,7 @@ let makeApplication =
                 , Some =
                     λ(route : Route.Type) →
                       [ openshift.Resource.Route
-                          ( makeRoute
-                              app.project.name
-                              app.enableTLS
-                              Route::route
-                          )
+                          (makeRoute app.project.name Route::route)
                       ]
                 }
                 app.route

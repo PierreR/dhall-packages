@@ -1,4 +1,3 @@
-{ Type =
-    { targetPort : Natural, protocol : Text, enableTLS : Bool, type : Text }
-, default = { protocol = "TCP", enableTLS = False, type = "ClusterIP" }
+{ Type = { port : Natural, protocol : Text, type : Text }
+, default = { protocol = "TCP", type = "ClusterIP" }
 }

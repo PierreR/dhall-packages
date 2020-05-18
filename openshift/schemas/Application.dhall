@@ -23,7 +23,6 @@ in  { Type =
         , service : Optional Service.Type
         , route : Optional Route.Type
         , secrets : Optional (List Secret.Type)
-        , enableTLS : Bool
         }
     , default =
       { quota = Quota.default
@@ -33,6 +32,5 @@ in  { Type =
       , service = None Service.Type
       , route = None Route.Type
       , secrets = None (List Secret.Type)
-      , enableTLS = False
       }
     }

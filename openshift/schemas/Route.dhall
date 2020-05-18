@@ -1,5 +1,14 @@
 { Type =
-    { apiVersion : Text, timeout : Text, domain : Text, path : Optional Text }
+    { apiVersion : Text
+    , timeout : Text
+    , domain : Text
+    , path : Optional Text
+    , enableTLS : Bool
+    }
 , default =
-  { apiVersion = "route.openshift.io/v1", timeout = "60s", path = None Text }
+  { apiVersion = "route.openshift.io/v1"
+  , timeout = "60s"
+  , path = None Text
+  , enableTLS = False
+  }
 }
