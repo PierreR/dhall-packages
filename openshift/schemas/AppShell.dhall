@@ -8,6 +8,8 @@ let Project = ../schemas/Project.dhall
 
 let Deployment = ../schemas/Deployment.dhall
 
+let Secret = ../schemas/Secret.dhall
+
 let Service = ../schemas/Service.dhall
 
 let Route = ../schemas/Route.dhall
@@ -20,7 +22,7 @@ in  { Type =
         , configMaps : Optional (List openshift.ConfigMap.Type)
         , service : Optional Service.Type
         , route : Optional Route.Type
-        , secrets : Optional (List openshift.Secret.Type)
+        , secrets : Optional (List Secret.Type)
         , enableTLS : Bool
         }
     , default =
@@ -30,7 +32,7 @@ in  { Type =
       , configMaps = None (List openshift.ConfigMap.Type)
       , service = None Service.Type
       , route = None Route.Type
-      , secrets = None (List openshift.Secret.Type)
+      , secrets = None (List Secret.Type)
       , enableTLS = False
       }
     }

@@ -18,6 +18,8 @@ let Quota = ../schemas/Quota.dhall
 
 let Deployment = ../schemas/Deployment.dhall
 
+let Secret = ../schemas/Secret.dhall
+
 let Service = ../schemas/Service.dhall
 
 let Route = ../schemas/Route.dhall
@@ -88,11 +90,11 @@ let makeAppShell =
               merge
                 { None = [] : List openshift.Resource
                 , Some =
-                    λ(secrets : List openshift.Secret.Type) →
+                    λ(secrets : List Secret.Type) →
                       List/map
-                        openshift.Secret.Type
+                        Secret.Type
                         openshift.Resource
-                        ( λ(secret : openshift.Secret.Type) →
+                        ( λ(secret : Secret.Type) →
                             openshift.Resource.Secret secret
                         )
                         secrets
