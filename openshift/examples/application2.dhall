@@ -1,7 +1,7 @@
 let oc = ../package.dhall
 
-let appShell =
-      oc.AppShell::{
+let application =
+      oc.Application::{
       , project =
         { name = "cicd-doc-dev"
         , displayName = "cicd doc for docs.cicd.cirb.lan"
@@ -51,7 +51,7 @@ let appShell =
           , data = Some
               ( toMap
                   { `test.conf` =
-                      ./test.conf sha256:1de95f5d7711c583651085cda70136868c98577462ebadd4d2a066f901b72fea as Text
+                      ./test.conf sha256:05d38a27ab242684458aa288386f311214dfe423fbeccda74f66b63aa2ebb9f8 as Text
                   }
               )
           }
@@ -71,4 +71,4 @@ let appShell =
       , route = Some oc.Route::{ domain = "docs.cicd.cirb.lan" }
       }
 
-in  oc.makeAppShell appShell
+in  oc.makeApplication application

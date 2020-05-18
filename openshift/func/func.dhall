@@ -1,4 +1,1 @@
-{ makeApplication = ./makeApplication.dhall
-, makeAppShell = ./makeAppShell.dhall
-, makeCron = ./makeCron.dhall
-}
+{ makeApplication = ./makeApplication.dhall, makeCron = ./makeCron.dhall }

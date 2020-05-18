@@ -59,7 +59,7 @@ items:
       volumeName: pv-nfs-sbx-vol04
   - apiVersion: v1
     data:
-      test.conf: Here is the content of the test.conf file
+      test.conf: "Here is the content of the test.conf file\n\nCICD & Middleware"
     kind: ConfigMap
     metadata:
       name: test-data
