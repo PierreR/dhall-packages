@@ -1,41 +1,43 @@
-let Prelude = ../Prelude.dhall
+-- The name of the deployment is the namespace of the application
+let List/map = (../../Prelude.dhall).List.map
 
 let openshift = ../packages/openshift.dhall
 
-let Config = ../schemas/Application.dhall
+let Deployment = ../schemas/Deployment.dhall
 
 let Container = ../schemas/Container.dhall
 
 let makeContainer = ./makeContainer.dhall
 
 let makeDeployment
-    : Config.Type → openshift.Deployment.Type
-    = λ(config : Config.Type) →
+    : Text → Deployment.Type → openshift.Deployment.Type
+    = λ(namespace : Text) →
+      λ(cfg : Deployment.Type) →
         openshift.Deployment::{
         , metadata = openshift.ObjectMeta::{
-          , name = config.name
-          , namespace = Some config.name
+          , name = Some namespace
+          , namespace = Some namespace
           }
         , spec = Some openshift.DeploymentSpec::{
           , selector = openshift.LabelSelector::{
-            , matchLabels = toMap { app = config.name }
+            , matchLabels = Some (toMap { app = namespace })
             }
           , template = openshift.PodTemplateSpec::{
             , metadata = openshift.ObjectMeta::{
-              , name = config.name
-              , labels = toMap { app = config.name }
+              , name = Some namespace
+              , labels = Some (toMap { app = namespace })
               }
             , spec = Some openshift.PodSpec::{
               , containers =
-                  Prelude.map
+                  List/map
                     Container.Type
                     openshift.Container.Type
                     makeContainer
-                    config.containers
-              , volumes = config.volumes
+                    cfg.containers
+              , volumes = cfg.volumes
               }
             }
-          , replicas = Some config.replicas
+          , replicas = Some cfg.replicas
           }
         }
 

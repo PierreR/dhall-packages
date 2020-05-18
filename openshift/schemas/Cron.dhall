@@ -9,12 +9,12 @@ in  { Type =
         , configMaps : List openshift.ConfigMap.Type
         , secrets : List openshift.Secret.Type
         , containers : List Container.Type
-        , initContainers : List Container.Type
+        , initContainers : Optional (List Container.Type)
         }
     , default =
       { volumes = [] : List openshift.Volume.Type
       , configMaps = [] : List openshift.ConfigMap.Type
       , secrets = [] : List openshift.Secret.Type
-      , initContainers = [] : List Container.Type
+      , initContainers = None (List Container.Type)
       }
     }

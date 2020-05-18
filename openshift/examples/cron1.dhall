@@ -1,15 +1,15 @@
-let ocp = ../package.dhall
+let oc = ../package.dhall
 
 let configuration =
-      ocp.Cron::{
+      oc.Cron::{
       , name = "cron1"
       , schedule = "*/1 * * * *"
       , containers =
-        [ ocp.Container::{
+        [ oc.Container::{
           , name = "basic1"
           , image = "cicd-docker.repository.irisnet.be/basic-task:0.2"
           }
         ]
       }
 
-in  ocp.makeCron configuration
+in  oc.makeCron configuration

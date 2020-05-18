@@ -1,27 +1,31 @@
 let openshift = ../packages/openshift.dhall
 
-let Config = ../schemas/Application.dhall
+let Service = ../schemas/Service.dhall
 
 let makeService
-    : Config.Type → openshift.Service.Type
-    = λ(config : Config.Type) →
-        openshift.Service::{
-        , metadata = openshift.ObjectMeta::{
-          , name = config.name
-          , namespace = Some config.name
-          }
-        , spec = Some openshift.ServiceSpec::{
-          , ports =
-            [ openshift.ServicePort::{
-              , name = Some "http"
-              , protocol = Some "TCP"
-              , port = if config.enableTLS then 443 else 80
-              , targetPort = Some
-                  (< Int : Natural | String : Text >.Int config.port)
+    : Text → Service.Type → openshift.Service.Type
+    = λ(namespace : Text) →
+      λ(cfg : (../schemas/Service.dhall).Type) →
+        let name = namespace ++ "-srv"
+
+        in  openshift.Service::{
+            , metadata = openshift.ObjectMeta::{
+              , name = Some name
+              , namespace = Some namespace
               }
-            ]
-          , selector = toMap { app = config.name }
-          }
-        }
+            , spec = Some openshift.ServiceSpec::{
+              , ports = Some
+                [ openshift.ServicePort::{
+                  , name = Some "http"
+                  , protocol = Some cfg.protocol
+                  , port = cfg.port
+                  , targetPort = Some
+                      (< Int : Natural | String : Text >.Int cfg.port)
+                  }
+                ]
+              , selector = Some (toMap { app = namespace })
+              , type = Some cfg.type
+              }
+            }
 
 in  makeService

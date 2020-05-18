@@ -1,30 +1,36 @@
+-- Minimal application built from an 'application-form'
+
 let openshift = ../packages/openshift.dhall
 
-let Container = ../schemas/Container.dhall
+let Quota = ../schemas/Quota.dhall
+
+let Project = ../schemas/Project.dhall
+
+let Deployment = ../schemas/Deployment.dhall
+
+let Secret = ../schemas/Secret.dhall
+
+let Service = ../schemas/Service.dhall
+
+let Route = ../schemas/Route.dhall
 
 in  { Type =
-        { name : Text
-        , domain : Text
-        , displayName : Text
-        , replicas : Natural
-        , enableTLS : Bool
-        , port : Natural
-        , timeout : Text
-        , volumes : List openshift.Volume.Type
-        , volumeClaims : List openshift.PersistentVolumeClaim.Type
-        , configMaps : List openshift.ConfigMap.Type
-        , secrets : List openshift.Secret.Type
-        , containers : List Container.Type
+        { project : Project
+        , quota : Quota.Type
+        , deployment : Optional Deployment.Type
+        , volumeClaims : Optional (List openshift.PersistentVolumeClaim.Type)
+        , configMaps : Optional (List openshift.ConfigMap.Type)
+        , service : Optional Service.Type
+        , route : Optional Route.Type
+        , secrets : Optional (List Secret.Type)
         }
     , default =
-      { enableTLS = False
-      , domain = ""
-      , displayName = ""
-      , replicas = 1
-      , timeout = "60s"
-      , volumes = [] : List openshift.Volume.Type
-      , volumeClaims = [] : List openshift.PersistentVolumeClaim.Type
-      , configMaps = [] : List openshift.ConfigMap.Type
-      , secrets = [] : List openshift.Secret.Type
+      { quota = Quota.default
+      , deployment = None Deployment.Type
+      , volumeClaims = None (List openshift.PersistentVolumeClaim.Type)
+      , configMaps = None (List openshift.ConfigMap.Type)
+      , service = None Service.Type
+      , route = None Route.Type
+      , secrets = None (List Secret.Type)
       }
     }

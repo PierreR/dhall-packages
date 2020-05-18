@@ -1,4 +1,6 @@
-let Prelude = ../Prelude.dhall
+let List/map = (../../Prelude.dhall).List.map
+
+let Optional/map = (../../Prelude.dhall).Optional.map
 
 let Container = ../schemas/Container.dhall
 
@@ -13,31 +15,35 @@ let makeCronJob
     = λ(config : Config.Type) →
         openshift.CronJob::{
         , metadata = openshift.ObjectMeta::{
-          , name = config.name
+          , name = Some config.name
           , namespace = Some config.name
           }
         , spec = Some openshift.CronJobSpec::{
           , schedule = config.schedule
           , jobTemplate = openshift.JobTemplateSpec::{
-            , metadata = openshift.ObjectMeta::{ name = config.name }
+            , metadata = openshift.ObjectMeta::{ name = Some config.name }
             , spec = Some openshift.JobSpec::{
               , template = openshift.PodTemplateSpec::{
                 , metadata = openshift.ObjectMeta::{
-                  , name = config.name
-                  , labels = toMap { parent = config.name }
+                  , name = Some config.name
+                  , labels = Some (toMap { parent = config.name })
                   }
                 , spec = Some openshift.PodSpec::{
                   , containers =
-                      Prelude.map
+                      List/map
                         Container.Type
                         openshift.Container.Type
                         makeContainer
                         config.containers
                   , initContainers =
-                      Prelude.map
-                        Container.Type
-                        openshift.Container.Type
-                        makeContainer
+                      Optional/map
+                        (List Container.Type)
+                        (List openshift.Container.Type)
+                        ( List/map
+                            Container.Type
+                            openshift.Container.Type
+                            makeContainer
+                        )
                         config.initContainers
                   }
                 }

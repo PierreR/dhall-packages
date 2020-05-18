@@ -7,11 +7,13 @@ let project
     = λ(project : Project) →
         openshift.Project::{
         , metadata = openshift.ObjectMeta::{
-          , name = project.name
-          , annotations = toMap
-              { `openshift.io/display-name` = project.displayName
-              , `openshift.io/requester` = project.requester
-              }
+          , name = Some project.name
+          , annotations = Some
+              ( toMap
+                  { `openshift.io/display-name` = project.displayName
+                  , `openshift.io/requester` = project.requester
+                  }
+              )
           }
         }
 

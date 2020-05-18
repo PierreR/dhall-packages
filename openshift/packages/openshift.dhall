@@ -1,5 +1,5 @@
 let Openshift =
-      https://raw.githubusercontent.com/TristanCacqueray/dhall-openshift/master/package.dhall sha256:422477ee4999e20e3aa0486f9b25c5728e7e266d42b143b53578eff44e92f009
+      https://raw.githubusercontent.com/TristanCacqueray/dhall-openshift/v0.2.0/package.dhall sha256:5d6efe2ed15b3e4e263bafce9752c45c671a42bbefd4d483e87d40d41d089640
 
 in    Openshift
     ∧ { List =
