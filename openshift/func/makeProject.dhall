@@ -2,19 +2,33 @@ let openshift = ../packages/openshift.dhall
 
 let Project = ../schemas/Project.dhall
 
-let project
-    : Project → openshift.Project.Type
-    = λ(project : Project) →
-        openshift.Project::{
-        , metadata = openshift.ObjectMeta::{
-          , name = Some project.name
-          , annotations = Some
-              ( toMap
-                  { `openshift.io/display-name` = project.displayName
-                  , `openshift.io/requester` = project.requester
-                  }
-              )
-          }
-        }
+let Quota = ../schemas/Quota.dhall
 
-in  project
+let makeQuota = ./makeQuota.dhall
+
+let makeProject
+    : Project.Type → openshift.List.Type
+    = λ(proj : Project.Type) →
+        let quota = makeQuota proj.name Quota::proj.quota
+
+        let project =
+              openshift.Project::{
+              , metadata = openshift.ObjectMeta::{
+                , name = Some proj.name
+                , annotations = Some
+                    ( toMap
+                        { `openshift.io/display-name` = proj.displayName
+                        , `openshift.io/requester` = proj.requester
+                        }
+                    )
+                }
+              }
+
+        let items =
+              [ openshift.Resource.Project project
+              , openshift.Resource.ResourceQuota quota
+              ]
+
+        in  openshift.List::{ items }
+
+in  makeProject

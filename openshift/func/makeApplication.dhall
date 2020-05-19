@@ -2,10 +2,6 @@ let List/map = (../../Prelude.dhall).List.map
 
 let openshift = ../packages/openshift.dhall
 
-let makeProject = ./makeProject.dhall
-
-let makeQuota = ./makeQuota.dhall
-
 let makeDeployment = ./makeDeployment.dhall
 
 let makeService = ./makeService.dhall
@@ -13,8 +9,6 @@ let makeService = ./makeService.dhall
 let makeRoute = ./makeRoute.dhall
 
 let Application = ../schemas/Application.dhall
-
-let Quota = ../schemas/Quota.dhall
 
 let Deployment = ../schemas/Deployment.dhall
 
@@ -26,17 +20,13 @@ let Route = ../schemas/Route.dhall
 
 let makeApplication =
       λ(app : Application.Type) →
-        let project = makeProject app.project
-
-        let quota = makeQuota app.project.name Quota::app.quota
-
         let deploymentResource =
               merge
                 { None = [] : List openshift.Resource
                 , Some =
                     λ(d : Deployment.Type) →
                       [ openshift.Resource.Deployment
-                          (makeDeployment app.project.name Deployment::d)
+                          (makeDeployment app.namespace Deployment::d)
                       ]
                 }
                 app.deployment
@@ -47,7 +37,7 @@ let makeApplication =
                 , Some =
                     λ(srv : Service.Type) →
                       [ openshift.Resource.Service
-                          (makeService app.project.name Service::srv)
+                          (makeService app.namespace Service::srv)
                       ]
                 }
                 app.service
@@ -58,7 +48,7 @@ let makeApplication =
                 , Some =
                     λ(route : Route.Type) →
                       [ openshift.Resource.Route
-                          (makeRoute app.project.name Route::route)
+                          (makeRoute app.namespace Route::route)
                       ]
                 }
                 app.route
@@ -109,10 +99,7 @@ let makeApplication =
                 app.configMaps
 
         let items =
-                [ openshift.Resource.Project project
-                , openshift.Resource.ResourceQuota quota
-                ]
-              # deploymentResource
+                deploymentResource
               # volumeClaimResource
               # configMapResource
               # secretResource

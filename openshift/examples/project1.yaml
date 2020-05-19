@@ -1,0 +1,8 @@
+displayName: cicd doc for docs.cicd.cirb.lan
+name: cicd-doc-dev
+quota:
+  limits.cpu: '2'
+  limits.memory: "2Gi"
+  requests.cpu: '1'
+  requests.memory: "1Gi"
+requester: cicd
