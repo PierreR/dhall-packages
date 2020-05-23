@@ -53,7 +53,7 @@ let application =
         ]
       , secrets = Some
         [ oc.Secret::{
-          , metadata = oc.core.ObjectMeta::{ name = Some "test.crt" }
+          , name = "test.crt"
           , data = Some
               ( toMap
                   { `test.crt` =

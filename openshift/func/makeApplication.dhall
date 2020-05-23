@@ -6,6 +6,8 @@ let makeDeployment = ./makeDeployment.dhall
 
 let makeService = ./makeService.dhall
 
+let makeSecret = ./makeSecret.dhall
+
 let makeRoute = ./makeRoute.dhall
 
 let Application = ../schemas/Application.dhall
@@ -77,7 +79,8 @@ let makeApplication =
                         Secret.Type
                         openshift.Resource
                         ( λ(secret : Secret.Type) →
-                            openshift.Resource.Secret secret
+                            openshift.Resource.Secret
+                              (makeSecret Secret::secret)
                         )
                         secrets
                 }
