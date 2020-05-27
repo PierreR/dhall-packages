@@ -33,6 +33,12 @@ items:
           path: test.conf
       name: test-data
     name: nix-config
+  - name: test-crt
+    secret:
+      items:
+        - key: ca.pem
+          path: ca.pem
+      secretName: test-crt
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:

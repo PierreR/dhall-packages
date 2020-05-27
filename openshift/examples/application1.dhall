@@ -35,6 +35,14 @@ let application =
               [ oc.core.KeyToPath::{ key = "test.conf", path = "test.conf" } ]
             }
           }
+        , oc.core.Volume::{
+          , name = "test-crt"
+          , secret = Some oc.core.SecretVolumeSource::{
+            , secretName = Some "test-crt"
+            , items = Some
+              [ oc.core.KeyToPath::{ key = "ca.pem", path = "ca.pem" } ]
+            }
+          }
         ]
       , volumeClaims = Some
         [ oc.core.PersistentVolumeClaim::{
