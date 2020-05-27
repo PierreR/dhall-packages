@@ -55,6 +55,21 @@ let makeApplication =
                 }
                 app.route
 
+        let volumeResource =
+              merge
+                { None = [] : List openshift.Resource
+                , Some =
+                    λ(vols : List openshift.Volume.Type) →
+                      List/map
+                        openshift.Volume.Type
+                        openshift.Resource
+                        ( λ(vol : openshift.Volume.Type) →
+                            openshift.Resource.Volume vol
+                        )
+                        vols
+                }
+                app.volumes
+
         let volumeClaimResource =
               merge
                 { None = [] : List openshift.Resource
@@ -103,6 +118,7 @@ let makeApplication =
 
         let items =
                 deploymentResource
+              # volumeResource
               # volumeClaimResource
               # configMapResource
               # secretResource

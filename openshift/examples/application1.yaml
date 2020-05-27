@@ -27,6 +27,12 @@ items:
               volumeMounts:
                 - mountPath: /etc/data
                   name: test-data
+  - configMap:
+      items:
+        - key: test.conf
+          path: test.conf
+      name: test-data
+    name: nix-config
   - apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:

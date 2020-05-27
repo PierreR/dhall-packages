@@ -14,6 +14,7 @@ in  { Type =
         { namespace : Text
         , deployment : Optional Deployment.Type
         , volumeClaims : Optional (List openshift.PersistentVolumeClaim.Type)
+        , volumes : Optional (List openshift.Volume.Type)
         , configMaps : Optional (List openshift.ConfigMap.Type)
         , service : Optional Service.Type
         , route : Optional Route.Type
@@ -22,6 +23,7 @@ in  { Type =
     , default =
       { deployment = None Deployment.Type
       , volumeClaims = None (List openshift.PersistentVolumeClaim.Type)
+      , volumes = None (List openshift.Volume.Type)
       , configMaps = None (List openshift.ConfigMap.Type)
       , service = None Service.Type
       , route = None Route.Type

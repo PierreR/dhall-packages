@@ -26,6 +26,16 @@ let application =
             }
           ]
         }
+      , volumes = Some
+        [ oc.core.Volume::{
+          , name = "nix-config"
+          , configMap = Some oc.core.ConfigMapVolumeSource::{
+            , name = Some "test-data"
+            , items = Some
+              [ oc.core.KeyToPath::{ key = "test.conf", path = "test.conf" } ]
+            }
+          }
+        ]
       , volumeClaims = Some
         [ oc.core.PersistentVolumeClaim::{
           , metadata = oc.core.ObjectMeta::{ name = Some "nixery-storage" }
