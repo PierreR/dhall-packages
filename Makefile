@@ -1,10 +1,6 @@
-openshift_dir = ./openshift
-openshift_examples_dir := ./${openshift_dir}/examples
-openshift_examples_files := project1.yaml application1.yaml cron1.yaml secret1.yaml
-openshift_deps := $(openshift_dir)/func/*.dhall $(openshift_dir)/schemas/*.dhall
+.PHONY: examples fmt lint precommit freeze
 
-argo_examples_dir := ./argo/examples
-argo_examples_files := argo1.yaml
+DIRS = openshift/examples # TODO we need to fix --omit-empty before including argo/examples
 
 precommit:
 	pre-commit run --all-files
@@ -16,15 +12,10 @@ lint:
 	find . -name '*.dhall' -exec dhall lint --inplace {} \;
 
 freeze:
-	dhall freeze --all --inplace ./$(dir)/package.dhall;
+	dhall freeze --all --inplace ./**/examples/*.dhall;
 
-$(openshift_examples_dir)/%.yaml: $(openshift_examples_dir)/%.dhall $(openshift_deps)
+%.yaml: %.dhall
 	dhall-to-yaml --file $< > $@
 
-$(argo_examples_dir)/%.yaml: $(argo_examples_dir)/%.dhall
-	dhall-to-yaml --explain --file $< --omit-empty > $@
 
-argo-examples: $(argo_examples_files:%.yaml=${argo_examples_dir}/%.yaml)
-openshift-examples: $(openshift_examples_files:%.yaml=${openshift_examples_dir}/%.yaml)
-
-examples: argo-examples openshift-examples
+examples: $(foreach dir, $(DIRS), $(patsubst %.dhall,%.yaml,$(wildcard $(dir)/*.dhall)))
