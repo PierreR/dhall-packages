@@ -1,8 +1,6 @@
-let argocd =
-      https://raw.githubusercontent.com/EarnestResearch/dhall-packages/master/kubernetes/argocd/package.dhall
+let argocd = ../packages/argocd.dhall
 
-let packages =
-      https://raw.githubusercontent.com/EarnestResearch/dhall-packages/master/package.dhall
+let packages = ../packages/dhall-packages.dhall
 
 let App = ../schemas/App.dhall
 
