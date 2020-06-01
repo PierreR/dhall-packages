@@ -1,8 +1,21 @@
-displayName: cicd doc for docs.cicd.cirb.lan
-name: cicd-doc-dev
-quota:
-  limits.cpu: '2'
-  limits.memory: "2Gi"
-  requests.cpu: '1'
-  requests.memory: "1Gi"
-requester: cicd
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: Project
+    metadata:
+      annotations:
+        openshift.io/display-name: cicd doc for docs.cicd.cirb.lan
+        openshift.io/requester: cicd
+      name: cicd-doc-dev
+  - apiVersion: v1
+    kind: ResourceQuota
+    metadata:
+      name: cicd-doc-dev-quota
+      namespace: cicd-doc-dev
+    spec:
+      hard:
+        limits.cpu: '2'
+        limits.memory: "2Gi"
+        requests.cpu: '1'
+        requests.memory: "1Gi"
+kind: List

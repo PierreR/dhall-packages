@@ -8,4 +8,4 @@ let project =
       , requester = "cicd"
       }
 
-in  project
+in  oc.makeProject project
