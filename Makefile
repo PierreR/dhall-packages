@@ -8,13 +8,14 @@ precommit:
 fmt:
 	find . -name '*.dhall' -exec dhall format --inplace {} \;
 
-lint:
-	find . -name '*.dhall' -exec dhall lint --inplace {} \;
+check-lint:
+	fd -e dhall -x dhall lint --check --inplace;
 
 freeze:
 	dhall freeze --all --inplace ./**/examples/*.dhall;
 
 %.yaml: %.dhall
+	dhall lint --inplace $<
 	dhall-to-yaml --file $< > $@
 
 

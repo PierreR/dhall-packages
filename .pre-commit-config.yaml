@@ -14,8 +14,14 @@ repos:
   - repo: local
     hooks:
       - id: lint-dhall
-        name: 'Run dhall lint'
-        entry: 'make lint'
+        name: 'Check dhall lint'
+        entry: 'make check-lint'
         language: system
         pass_filenames: false
-        types: [file]
+  - repo: local
+    hooks:
+      - id: make-examples
+        name: 'Make examples'
+        entry: 'make examples'
+        language: system
+        pass_filenames: false
