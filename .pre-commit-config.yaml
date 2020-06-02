@@ -13,15 +13,14 @@ repos:
           - commit-msg
   - repo: local
     hooks:
-      - id: lint-dhall
-        name: 'Check dhall lint'
-        entry: 'make check-lint'
-        language: system
-        pass_filenames: false
-  - repo: local
-    hooks:
       - id: make-examples
         name: 'Make examples'
         entry: 'make examples'
         language: system
         pass_filenames: false
+      - id: check-lint
+        name: 'Check lint'
+        entry: 'make check-lint'
+        language: system
+        pass_filenames: false
+        stages: [ "push"]

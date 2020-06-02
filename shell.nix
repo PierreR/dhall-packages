@@ -7,6 +7,7 @@ mkShell {
     cacert
     dhall
     dhall-json
+    fd
   ];
   shellHook = ''
   '';
