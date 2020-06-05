@@ -14,7 +14,7 @@ let makeArgo =
           , namespace = Some "argocd"
           }
         , spec = argocd.ApplicationSpec::{
-          , project = "default"
+          , project = config.project
           , source =
               merge
                 { Some =
