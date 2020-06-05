@@ -35,6 +35,7 @@ let makeContainer
               )
               c.ports
         , volumeMounts = c.volumeMounts
+        , resources = c.resources
         }
 
 in  makeContainer
