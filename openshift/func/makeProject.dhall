@@ -12,7 +12,7 @@ let makeProject
         let quota = makeQuota proj.name Quota::proj.quota
 
         let project =
-              openshift.Project::{
+              openshift.Namespace::{
               , metadata = openshift.ObjectMeta::{
                 , name = Some proj.name
                 , annotations = Some
