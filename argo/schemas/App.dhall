@@ -1,3 +1,4 @@
-{ Type = { name : Text, path : Text, repository : Text, argoPlugin : Text }
-, default = { argoPlugin = "encrypted-yaml", path = "./" }
+{ Type =
+    { name : Text, path : Text, repository : Text, argoPlugin : Optional Text }
+, default = { argoPlugin = None Text, path = "./" }
 }

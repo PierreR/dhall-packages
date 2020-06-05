@@ -16,12 +16,23 @@ let makeArgo =
         , spec = argocd.ApplicationSpec::{
           , project = "default"
           , source =
-              argocd.SourceSpec.TypesUnion.Plugin
-                argocd.PluginSourceSpec::{
-                , repoURL = config.repository
-                , path = config.path
-                , plugin = argocd.PluginSpec::{ name = config.argoPlugin }
+              merge
+                { Some =
+                    λ(plugin : Text) →
+                      argocd.SourceSpec.TypesUnion.Plugin
+                        argocd.PluginSourceSpec::{
+                        , repoURL = config.repository
+                        , path = config.path
+                        , plugin = argocd.PluginSpec::{ name = plugin }
+                        }
+                , None =
+                    argocd.SourceSpec.TypesUnion.Directory
+                      argocd.DirectorySourceSpec::{
+                      , repoURL = config.repository
+                      , path = config.path
+                      }
                 }
+                config.argoPlugin
           , destination = argocd.DestinationSpec::{
             , server = "https://kubernetes.default.svc"
             , namespace = config.name
