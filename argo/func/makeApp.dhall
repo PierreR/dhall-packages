@@ -24,12 +24,14 @@ let makeArgo =
                         , repoURL = config.repository
                         , path = config.path
                         , plugin = argocd.PluginSpec::{ name = plugin }
+                        , targetRevision = config.revision
                         }
                 , None =
                     argocd.SourceSpec.TypesUnion.Directory
                       argocd.DirectorySourceSpec::{
                       , repoURL = config.repository
                       , path = config.path
+                      , targetRevision = config.revision
                       }
                 }
                 config.argoPlugin

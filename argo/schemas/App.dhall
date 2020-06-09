@@ -4,6 +4,7 @@
     , path : Text
     , repository : Text
     , argoPlugin : Optional Text
+    , revision : Optional Text
     }
-, default = { project = "default", argoPlugin = None Text, path = "./" }
+, default = { project = "default", argoPlugin = None Text, path = "./", revision = None Text }
 }
