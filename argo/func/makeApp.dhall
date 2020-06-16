@@ -37,7 +37,10 @@ let makeArgo =
                 config.argoPlugin
           , destination = argocd.DestinationSpec::{
             , server = "https://kubernetes.default.svc"
-            , namespace = config.name
+            , namespace =
+                merge
+                  { Some = λ(ns : Text) → ns, None = config.name }
+                  config.namespace
             }
           , syncPolicy = Some argocd.SyncPolicy::{
             , automated = Some argocd.SyncPolicyAutomated::{
