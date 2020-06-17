@@ -6,11 +6,16 @@ let makeService
     : Text → Service.Type → openshift.Service.Type
     = λ(namespace : Text) →
       λ(cfg : (../schemas/Service.dhall).Type) →
-        let name = namespace ++ "-srv"
+        let name =
+              Some
+                ( merge
+                    { Some = λ(name : Text) → name, None = namespace ++ "-srv" }
+                    cfg.name
+                )
 
         in  openshift.Service::{
             , metadata = openshift.ObjectMeta::{
-              , name = Some name
+              , name
               , namespace = Some namespace
               }
             , spec = Some openshift.ServiceSpec::{
