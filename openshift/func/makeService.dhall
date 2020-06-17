@@ -19,15 +19,7 @@ let makeService
               , namespace = Some namespace
               }
             , spec = Some openshift.ServiceSpec::{
-              , ports = Some
-                [ openshift.ServicePort::{
-                  , name = Some "http"
-                  , protocol = Some cfg.protocol
-                  , port = cfg.port
-                  , targetPort = Some
-                      (< Int : Natural | String : Text >.Int cfg.port)
-                  }
-                ]
+              , ports = Some cfg.ports
               , selector = Some (toMap { app = namespace })
               , type = Some cfg.type
               }
