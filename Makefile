@@ -11,7 +11,7 @@ fmt:
 	find . -name '*.dhall' -exec dhall format --inplace {} \;
 
 lint:
-	fd -e dhall -x dhall lint --check --inplace;
+	fd -e dhall -x dhall lint --inplace;
 
 %.yaml: %.dhall
 	dhall-to-yaml --file $< > $@

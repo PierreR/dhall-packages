@@ -1,4 +1,5 @@
 let oc = env:OC
+
 let application =
       oc.Application::{
       , namespace = "application1-dev"
@@ -79,7 +80,7 @@ let application =
               )
           }
         ]
-      , service = Some oc.Service::{ ports = 8080 }
+      , service = Some oc.Service::{ ports = [ 8080 ] }
       , route = Some oc.Route::{ domain = "app1.cicd.cirb.lan" }
       }
 

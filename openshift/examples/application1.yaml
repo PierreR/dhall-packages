@@ -1,0 +1,101 @@
+apiVersion: v1
+items:
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: application1-dev
+      namespace: application1-dev
+    spec:
+      replicas: 2
+      selector:
+        matchLabels:
+          app: application1-dev
+      template:
+        metadata:
+          labels:
+            app: application1-dev
+          name: application1-dev
+        spec:
+          containers:
+            - env:
+                - name: NIX_PATH
+                  value: nixpkgs-overlays=http://stash.cirb.lan/CICD/nixpkgs-overlays/archive/master.tar.gz
+              image: app1-docker.repository.irisnet.be/cicd-docs
+              name: cicd-docs
+              ports:
+                - containerPort: 8080
+              resources:
+                limits:
+                  cpu: "400m"
+                  memory: "400M"
+                requests:
+                  cpu: "200m"
+                  memory: "200M"
+              volumeMounts:
+                - mountPath: /etc/data
+                  name: test-data
+  - configMap:
+      items:
+        - key: test.conf
+          path: test.conf
+      name: test-data
+    name: nix-config
+  - name: test-crt
+    secret:
+      items:
+        - key: ca.pem
+          path: ca.pem
+      secretName: test-crt
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: nixery-storage
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "10Gi"
+      storageClassName: slow
+      volumeName: pv-nfs-sbx-vol04
+  - apiVersion: v1
+    data:
+      test.conf: "Here is the content of the test.conf file\n\nCICD & Middleware"
+    kind: ConfigMap
+    metadata:
+      name: test-data
+  - apiVersion: v1
+    data:
+      test.crt: Please encrypt this file
+    kind: Secret
+    metadata:
+      name: test.crt
+    type: Opaque
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: application1-dev-srv
+      namespace: application1-dev
+    spec:
+      ports:
+        - name: http
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: application1-dev
+      type: ClusterIP
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      annotations:
+        haproxy.router.openshift.io/timeout: "60s"
+      name: application1-dev-route
+      namespace: application1-dev
+    spec:
+      host: app1.cicd.cirb.lan
+      to:
+        kind: Service
+        name: application1-dev-srv
+        weight: 100
+kind: List
