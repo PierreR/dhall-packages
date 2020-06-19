@@ -5,7 +5,7 @@ DIRS = openshift/examples # TODO we need to fix --omit-empty before including ar
 all: freeze examples
 
 precommit:
-	pre-commit run --all-files
+	pre-commit run --all-files  --hook-stage push
 
 fmt:
 	find . -name '*.dhall' -exec dhall format --inplace {} \;
