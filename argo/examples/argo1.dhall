@@ -1,4 +1,4 @@
-let argo = ../package.dhall
+let argo = env:ARGO
 
 let configuration =
       argo.App::{

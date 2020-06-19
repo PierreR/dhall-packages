@@ -13,14 +13,9 @@ repos:
           - commit-msg
   - repo: local
     hooks:
-      - id: make-examples
-        name: 'Make examples'
-        entry: 'make examples'
-        language: system
-        pass_filenames: false
-      - id: check-lint
-        name: 'Check lint'
-        entry: 'make check-lint'
+      - id: all
+        name: 'All checks'
+        entry: 'make all'
         language: system
         pass_filenames: false
         stages: [ "push"]

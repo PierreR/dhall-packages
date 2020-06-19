@@ -1,5 +1,4 @@
-let oc =
-      ../package.dhall sha256:6ef4eacc29986073de97ea4c9aee36240690b1d3684eb59bf112d204ddda682b
+let oc = env:OC
 
 let configuration =
       oc.Cron::{

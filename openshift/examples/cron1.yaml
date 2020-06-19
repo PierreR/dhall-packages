@@ -19,5 +19,12 @@ items:
               containers:
                 - image: cicd-docker.repository.irisnet.be/basic-task:0.2
                   name: basic1
+                  resources:
+                    limits:
+                      cpu: "400m"
+                      memory: "400M"
+                    requests:
+                      cpu: "200m"
+                      memory: "200M"
       schedule: "*/1 * * * *"
 kind: List
