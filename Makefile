@@ -14,7 +14,7 @@ lint:
 	fd -e dhall -x dhall lint --inplace;
 
 %.yaml: %.dhall
-	dhall-to-yaml --file $< > $@
+	dhall-to-yaml --file $< --output $@
 
 examples: $(foreach dir, $(DIRS), $(patsubst %.dhall,%.yaml,$(wildcard $(dir)/*.dhall)))
 
