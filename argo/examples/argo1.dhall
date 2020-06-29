@@ -1,4 +1,5 @@
-let argo = ../package.dhall sha256:39af80b2f2c967cd71e8168df7d1d853f49103002ff6c67d710a0fcdc0421cd5
+let argo =
+      ../package.dhall sha256:52ac9005b563dc0882df4667c9bd330580abf482fc1a33899ac860527cda65d7
 
 let configuration =
       argo.App::{

@@ -11,6 +11,7 @@ spec:
   source:
     path: sbx/application/app1/dev
     repoURL: http://stash.cirb.lan/scm/oc/projects.git
+    targetRevision: cicd
   syncPolicy:
     automated:
       prune: true
