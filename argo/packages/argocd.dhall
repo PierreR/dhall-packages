@@ -1,4 +1,3 @@
 let argocd =
-      https://raw.githubusercontent.com/EarnestResearch/dhall-packages/master/kubernetes/argocd/package.dhall sha256:c7a4e6926237d9e229244f201b330ac53a34c197456b75d3ec54a6f2e5aa384d
-
+  http://stash.cirb.lan/projects/CICD/repos/dhall-argocd/raw/kubernetes/argocd/package.dhall sha256:1497b3d7e79f2afa55a1f363530d2f8be5bf128e4dc09b6a781c9cf95265e32e
 in  argocd

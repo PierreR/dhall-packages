@@ -1,16 +1,12 @@
 let argocd = ../packages/argocd.dhall
-
-let packages = ../packages/dhall-packages.dhall
-
 let App = ../schemas/App.dhall
-
-let k8s = packages.kubernetes.k8s.`1-14`
-
+let ObjectMeta =
+      https://raw.githubusercontent.com/dhall-lang/dhall-kubernetes/master/1.17/schemas/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta.dhall
 let makeArgo =
       λ(config : App.Type) →
         argocd.Application::{
-        , metadata = k8s.ObjectMeta::{
-          , name = config.name
+        , metadata = ObjectMeta::{
+          , name = Some config.name
           , namespace = Some "argocd"
           }
         , spec = argocd.ApplicationSpec::{

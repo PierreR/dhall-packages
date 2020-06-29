@@ -1,18 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: basic1-dev
+  name: app1-dev
   namespace: argocd
 spec:
   destination:
-    namespace: basic1-dev
+    namespace: app1-dev
     server: https://kubernetes.default.svc
-  project: default
+  project: cicd
   source:
-    path: "./"
-    plugin:
-      name: encrypted-yaml
-    repoURL: http://stash.cirb.lan/scm/oc/app1.git
+    path: sbx/application/app1/dev
+    repoURL: http://stash.cirb.lan/scm/oc/projects.git
   syncPolicy:
     automated:
       prune: true

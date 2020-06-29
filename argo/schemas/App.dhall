@@ -8,9 +8,8 @@
     , namespace : Optional Text
     }
 , default =
-  { project = "default"
+  { repository = "http://stash.cirb.lan/scm/oc/projects.git"
   , argoPlugin = None Text
-  , path = "./"
   , revision = None Text
   , namespace = None Text
   }
