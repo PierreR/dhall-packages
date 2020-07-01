@@ -18,4 +18,17 @@ items:
         limits.memory: "2Gi"
         requests.cpu: '1'
         requests.memory: "1Gi"
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    metadata:
+      name: cicd-sa-edit
+      namespace: cicd-doc-dev
+    roleRef:
+      apiGroup: rbac.authorization.k8s.io
+      kind: ClusterRole
+      name: edit
+    subjects:
+      - kind: ServiceAccount
+        name: cicd
+        namespace: default
 kind: List

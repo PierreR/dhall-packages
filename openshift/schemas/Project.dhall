@@ -1,10 +1,12 @@
-let Quota = ../schemas/Quota.dhall
+let Quota = ./Quota.dhall
 
 in  { Type =
-        { name : Text
+        { stack : Text
+        , projectName : Text
+        , zone : Optional Text
         , displayName : Text
         , requester : Text
         , quota : Quota.Type
         }
-    , default.quota = Quota.default
+    , default = { zone = None Text, quota = Quota.default }
     }

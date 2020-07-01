@@ -10,6 +10,6 @@ mkShell {
     fd
   ];
   shellHook = ''
-    export OC='../package.dhall sha256:0883c568eb58c94a29e6c561d4cfa218d80687840363289608067c1637bbd9bb'
+    export OC='../package.dhall sha256:5c0bd30ac3c1d0914770754fe82256720a04471f38a26bbc6b63bd7ebd9eea94'
   '';
 }
